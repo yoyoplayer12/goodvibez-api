@@ -2,12 +2,12 @@ const fs = require('fs');
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const port = 3000;
 
 //connect to mongodb (add slash for online use)
-// const credentials = "/etc/secrets/credentials.pem";
-const theCredendials =  process.env.credentials;
+const credentials = "/etc/secrets/credentials.pem";
 mongoose.connect("mongodb+srv://goodvibez.sxragvk.mongodb.net/message-db?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=goodvibez", {
-    tlsCertificateKeyFile: theCredendials,
+    tlsCertificateKeyFile: credentials,
 });
 
 //check connection 
@@ -23,8 +23,8 @@ app.use(express.json());
 //use routes
 app.use("/api/v1/messages", messagesRouter);
 
-app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
 });
 });
 // enable cors express
