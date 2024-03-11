@@ -1,5 +1,6 @@
 //require the comments model
 const Message = require("../../../models/Message");
+const WebSocket = require('ws');
 
 const index = async (req, res) => {
     let messages;
@@ -26,8 +27,18 @@ const create = async(req, res) => {
     let m = new Message();
     m.text = req.body.text;
     m.username = req.body.username;
-     try {
+    try {
         let doc = await m.save();
+
+        // Send the new message to all connected WebSocket clients
+        if (global.wss) {
+            global.wss.clients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify(doc));
+                }
+            });
+        }
+
         res.json({
             "status": "success",
             "comment": "message sent",
@@ -42,7 +53,6 @@ const create = async(req, res) => {
             "comment": "Could not save message"
         });
     }
-
 };
 const update = async (req, res) => {
     try {
