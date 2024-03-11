@@ -40,7 +40,7 @@ wss.on('connection', async (ws) => {
 
     try {
         // Query the database for all messages
-        const messages = await Message.find({});
+        const messages = await Message.find({ removed: false });
 
         // Send each message to the client
         messages.forEach(message => {
