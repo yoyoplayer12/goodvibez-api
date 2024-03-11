@@ -11,7 +11,7 @@ const Message = require('./models/Message.js'); // Import your Message model
 app.use(cors());
 
 // Connect to MongoDB (add slash for web)
-const credentials = "etc/secrets/credentials.pem";
+const credentials = "/etc/secrets/credentials.pem";
 mongoose.connect("mongodb+srv://goodvibez.sxragvk.mongodb.net/message-db?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=goodvibez", {
     tlsCertificateKeyFile: credentials,
 });
