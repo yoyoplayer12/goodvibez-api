@@ -1,1 +1,1 @@
-# goodvibez-api
+# goodvibez api
