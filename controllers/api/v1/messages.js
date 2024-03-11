@@ -58,6 +58,15 @@ const update = async (req, res) => {
     try {
         let message = await Message.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (message) {
+            // Send the updated message to all connected WebSocket clients
+            if (global.wss) {
+                global.wss.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify(message));
+                    }
+                });
+            }
+
             res.json({
                 "status": "success",
                 "comment": "UPDATED message with ID " + req.params.id,
