@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 const index = async (req, res) => {
     let messages;
         try{
-            messages = await Message.find({ removed: false }).sort({ timestamp: 1 });
+            messages = await Message.find({ removed: false }).sort({ createdAt: 1 });
             res.json({
                 status: "success",
                 comment: "GETTING messages",
