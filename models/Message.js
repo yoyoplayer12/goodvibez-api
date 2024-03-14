@@ -10,6 +10,10 @@ const MessageSchema = new Schema({
         type: String,
         required: true,
     },
+    reports: {
+        type: Number,
+        default: 0,
+    },
     removed: {
         type: Boolean,
         default: false,
